@@ -1,12 +1,10 @@
-package com.barclays.pojos;
+package com.barclays.test.impl;
 
 import java.util.Objects;
 
 /**
- * Created on 11/4/15, 7:08 PM
- * ConveyorLink.java
  *
- * @author gshankar
+ * @author Srinivasa
  */
 public final class ConveyorLink {
 

@@ -1,23 +1,21 @@
-package com.barclays.pojos;
+package com.barclays.test.impl;
 
-import com.barclays.constants.Gate;
+import com.barclays.test.data.GateData;
 
 /**
- * Created on 11/4/15, 7:25 PM
- * Bag.java
  *
- * @author gshankar
+ * @author Srinivasa
  */
-public class Bag {
+public class Baggage {
     private String id;
-    private Gate entryPoint;
+    private GateData entryPoint;
     private String flightId;
 
-    public Bag(){
+    public Baggage(){
 
     }
 
-    public Bag(String bagId, Gate entryPoint, String flightId){
+    public Baggage(String bagId, GateData entryPoint, String flightId){
         this.id = bagId;
         this.entryPoint = entryPoint;
         this.flightId = flightId;
@@ -31,11 +29,11 @@ public class Bag {
         this.id = id;
     }
 
-    public Gate getEntryPoint() {
+    public GateData getEntryPoint() {
         return entryPoint;
     }
 
-    public void setEntryPoint(Gate entryPoint) {
+    public void setEntryPoint(GateData entryPoint) {
         this.entryPoint = entryPoint;
     }
 

@@ -1,9 +1,9 @@
-package com.barclays.business;
-
-import com.barclays.pojos.ConveyorLink;
-import com.barclays.pojos.ConveyorNode;
+package com.barclays.test.operations;
 
 import java.util.*;
+
+import com.barclays.test.impl.ConveyorLink;
+import com.barclays.test.impl.ConveyorNode;
 
 /**
  *

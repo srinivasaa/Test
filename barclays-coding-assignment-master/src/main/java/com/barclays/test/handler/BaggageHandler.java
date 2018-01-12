@@ -1,7 +1,7 @@
-package com.barclays.input;
+package com.barclays.test.handler;
 
-import com.barclays.constants.Gate;
-import com.barclays.pojos.Bag;
+import com.barclays.test.data.GateData;
+import com.barclays.test.impl.Baggage;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,14 +10,12 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Created on 12/4/15, 4:00 PM
- * BagHandler.java
  *
- * @author gshankar
+ * @author Srinivasa
  */
-public class BagHandler implements InputHandler {
+public class BaggageHandler implements InputHandler {
 
-    private Map<String, Bag> bagIdToBagMap;
+    private Map<String, Baggage> bagIdToBagMap;
 
     @Override
     public void process() throws Exception {
@@ -57,7 +55,7 @@ public class BagHandler implements InputHandler {
                         throw new IOException("BAD INPUT FORMAT...");
                     }
                     String bagId = tokens[0];
-                    Gate entryGate = Gate.getGate(tokens[1]);
+                    GateData entryGate = GateData.getGate(tokens[1]);
                     String flightId = tokens[2];
 
 
@@ -65,7 +63,7 @@ public class BagHandler implements InputHandler {
                         throw new IOException("INVALID ENTRY GATE FOUND...");
                     }
 
-                    bagIdToBagMap.put(bagId, new Bag(bagId, entryGate, flightId));
+                    bagIdToBagMap.put(bagId, new Baggage(bagId, entryGate, flightId));
                 }
 
             }
@@ -74,11 +72,11 @@ public class BagHandler implements InputHandler {
         }
     }
 
-    public Map<String, Bag> getBagIdToBagMap() {
+    public Map<String, Baggage> getBagIdToBagMap() {
         return bagIdToBagMap;
     }
 
-    public void setBagIdToBagMap(Map<String, Bag> bagIdToBagMap) {
+    public void setBagIdToBagMap(Map<String, Baggage> bagIdToBagMap) {
         this.bagIdToBagMap = bagIdToBagMap;
     }
 }

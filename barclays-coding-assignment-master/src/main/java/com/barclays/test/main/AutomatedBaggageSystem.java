@@ -1,34 +1,33 @@
-package com.barclays;
+package com.barclays.test.main;
 
-import com.barclays.business.ConveyorPlot;
-import com.barclays.constants.Gate;
-import com.barclays.input.BagHandler;
-import com.barclays.input.ConveyorGraphHandler;
-import com.barclays.input.FlightDepartureHandler;
-import com.barclays.pojos.Bag;
-import com.barclays.pojos.ConveyorNode;
-import com.barclays.pojos.FlightDeparture;
+import com.barclays.test.data.GateData;
+import com.barclays.test.handler.BaggageHandler;
+import com.barclays.test.handler.ConveyorPlotHandler;
+import com.barclays.test.handler.FlightDepartureHandler;
+import com.barclays.test.impl.Baggage;
+import com.barclays.test.impl.ConveyorNode;
+import com.barclays.test.impl.FlightDeparture;
+import com.barclays.test.operations.ConveyorPlot;
 
 import java.util.List;
 import java.util.Map;
 
 /**
  *
- * @author srinivasa
+ * @author Srinivasa
  */
 public class AutomatedBaggageSystem {
 
     public static void main(String[] args) {
 
-        ConveyorPlot conveyorGraph = null;
+        ConveyorPlot conveyorPlot = null;
         Map<String, FlightDeparture> flightIdToDepartureMap = null;
-        Map<String, Bag> bagIdToBagMap = null;
+        Map<String, Baggage> bagIdToBagMap = null;
 
-        ConveyorGraphHandler conveyorGraphHandler = new ConveyorGraphHandler();
+        ConveyorPlotHandler conveyorGraphHandler = new ConveyorPlotHandler();
         try {
             conveyorGraphHandler.process();
-            conveyorGraph = conveyorGraphHandler.getConveyorGraph();
-            //System.out.println(conveyorGraph);
+            conveyorPlot = conveyorGraphHandler.getConveyorGraph();
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -37,32 +36,29 @@ public class AutomatedBaggageSystem {
         try {
             flightDepartureHandler.process();
             flightIdToDepartureMap = flightDepartureHandler.getFlightIdToDepartureMap();
-            //System.out.println(flightIdToDepartureMap);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        BagHandler bagHandler = new BagHandler();
+        BaggageHandler bagHandler = new BaggageHandler();
         try {
             bagHandler.process();
             bagIdToBagMap = bagHandler.getBagIdToBagMap();
-            //System.out.println(bagIdToBagMap);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
         StringBuffer output = new StringBuffer();
 
-        for (Map.Entry<String, Bag> entry : bagIdToBagMap.entrySet()) {
-            Bag bag = entry.getValue();
+        for (Map.Entry<String, Baggage> entry : bagIdToBagMap.entrySet()) {
+            Baggage bag = entry.getValue();
             String bagId = bag.getId();
             String flightId = bag.getFlightId();
-            Gate sourceGate = bag.getEntryPoint();
+            GateData sourceGate = bag.getEntryPoint();
 
             output.append(bagId + " ");
 
-
-            Gate departureGate = null;
+            GateData departureGate = null;
             if (flightId.equals("ARRIVAL")) {
                 departureGate = sourceGate.BAGGAGE_CLAIM;
             } else {
@@ -71,7 +67,7 @@ public class AutomatedBaggageSystem {
 
             ConveyorNode sourceNode = new ConveyorNode(sourceGate, sourceGate.getValue());
             ConveyorNode targetNode = new ConveyorNode(departureGate, departureGate.getValue());
-            List<ConveyorNode> shortestPath = conveyorGraph.findShortestPath(sourceNode, targetNode);
+            List<ConveyorNode> shortestPath = conveyorPlot.findShortestPath(sourceNode, targetNode);
 
             if (!shortestPath.isEmpty()) {
                 output.append(sourceGate.getValue() + " ");

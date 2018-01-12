@@ -1,8 +1,8 @@
-package com.barclays.input;
+package com.barclays.test.handler;
 
-import com.barclays.business.ConveyorPlot;
-import com.barclays.constants.Gate;
-import com.barclays.pojos.ConveyorNode;
+import com.barclays.test.data.GateData;
+import com.barclays.test.impl.ConveyorNode;
+import com.barclays.test.operations.ConveyorPlot;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,16 +11,14 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Created on 12/4/15, 3:59 PM
- * ConveyorGraphHandler.java
  *
- * @author gshankar
+ * @author Srinivasa
  */
-public class ConveyorGraphHandler implements InputHandler {
+public class ConveyorPlotHandler implements InputHandler {
 
-    private ConveyorPlot conveyorGraph;
+    private ConveyorPlot conveyorPlot;
 
-    private Map<Gate, ConveyorNode> gateNodeMap = new HashMap<>();
+    private Map<GateData, ConveyorNode> gateNodeMap = new HashMap<>();
 
     @Override
     public void process() throws Exception {
@@ -46,7 +44,7 @@ public class ConveyorGraphHandler implements InputHandler {
                         continue;
                     } else if (line.endsWith("Conveyor System")) {
                         startGraphSection = true;
-                        conveyorGraph = new ConveyorPlot();
+                        conveyorPlot = new ConveyorPlot();
                         continue;
                     } else if (startGraphSection && !line.endsWith("Conveyor System")) {
                         endGraphSection = true;
@@ -63,16 +61,16 @@ public class ConveyorGraphHandler implements InputHandler {
                     String to = tokens[1];
                     int cost = Integer.parseInt(tokens[2]);
 
-                    Gate fromGate = Gate.getGate(from);
-                    Gate toGate = Gate.getGate(to);
+                    GateData fromGate = GateData.getGate(from);
+                    GateData toGate = GateData.getGate(to);
 
                     if (fromGate == null || toGate == null) {
                         throw new IOException("INVALID GATE FOUND...");
                     }
 
                     //add the bi-directional link in the barclays
-                    conveyorGraph.addLink(createNode(fromGate, gateNodeMap), createNode(toGate, gateNodeMap), cost);
-                    conveyorGraph.addLink(createNode(toGate, gateNodeMap), createNode(fromGate, gateNodeMap), cost);
+                    conveyorPlot.addLink(createNode(fromGate, gateNodeMap), createNode(toGate, gateNodeMap), cost);
+                    conveyorPlot.addLink(createNode(toGate, gateNodeMap), createNode(fromGate, gateNodeMap), cost);
                 }
 
             }
@@ -82,14 +80,14 @@ public class ConveyorGraphHandler implements InputHandler {
     }
 
     public ConveyorPlot getConveyorGraph() {
-        return conveyorGraph;
+        return conveyorPlot;
     }
 
     public void setConveyorGraph(ConveyorPlot conveyorGraph) {
-        this.conveyorGraph = conveyorGraph;
+        this.conveyorPlot = conveyorGraph;
     }
 
-    private ConveyorNode createNode(Gate gate, Map<Gate, ConveyorNode> nodeMap) {
+    private ConveyorNode createNode(GateData gate, Map<GateData, ConveyorNode> nodeMap) {
         if (nodeMap.containsKey(gate)) {
             return nodeMap.get(gate);
         }

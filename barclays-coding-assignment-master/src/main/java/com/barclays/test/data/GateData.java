@@ -1,4 +1,4 @@
-package com.barclays.constants;
+package com.barclays.test.data;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,7 @@ import java.util.Map;
  *
  * @author Srinivasa
  */
-public enum Gate {
+public enum GateData {
     A1("A1"),
     A2("A2"),
     A3("A3"),
@@ -23,7 +23,7 @@ public enum Gate {
 
     public final String value;
 
-    private Gate(String value){
+    private GateData(String value){
         this.value = value;
     }
 
@@ -31,15 +31,15 @@ public enum Gate {
         return value;
     }
 
-    private static final Map<String, Gate> GATE_MAP = new HashMap<String, Gate>();
+    private static final Map<String, GateData> GATE_MAP = new HashMap<String, GateData>();
 
     static {
-        for (Gate gate : Gate.values()) {
+        for (GateData gate : GateData.values()) {
             GATE_MAP.put(gate.getValue(), gate);
         }
     }
 
-    public static Gate getGate(String value) {
+    public static GateData getGate(String value) {
         return GATE_MAP.get(value);
     }
 }

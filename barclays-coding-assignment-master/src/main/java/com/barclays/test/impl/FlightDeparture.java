@@ -1,23 +1,21 @@
-package com.barclays.pojos;
+package com.barclays.test.impl;
 
-import com.barclays.constants.Gate;
+import com.barclays.test.data.GateData;
 
 /**
- * Created on 11/4/15, 8:04 PM
- * FlightDeparture.java
  *
- * @author gshankar
+ * @author Srinivasa
  */
 public class FlightDeparture {
     private String flightId;
-    private Gate departureGate;
+    private GateData departureGate;
     private String destination;
     private String departureTime;
 
     public FlightDeparture(){
     }
 
-    public FlightDeparture(String flightId, Gate departureGate, String destination, String departureTime){
+    public FlightDeparture(String flightId, GateData departureGate, String destination, String departureTime){
         this.flightId = flightId;
         this.departureGate = departureGate;
         this.destination = destination;
@@ -32,11 +30,11 @@ public class FlightDeparture {
         this.flightId = flightId;
     }
 
-    public Gate getDepartureGate() {
+    public GateData getDepartureGate() {
         return departureGate;
     }
 
-    public void setDepartureGate(Gate departureGate) {
+    public void setDepartureGate(GateData departureGate) {
         this.departureGate = departureGate;
     }
 

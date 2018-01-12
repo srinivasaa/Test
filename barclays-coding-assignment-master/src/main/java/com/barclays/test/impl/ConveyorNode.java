@@ -1,26 +1,24 @@
-package com.barclays.pojos;
+package com.barclays.test.impl;
 
-import com.barclays.constants.Gate;
+import com.barclays.test.data.GateData;
 
 /**
- * Created on 11/4/15, 7:07 PM
- * ConveyorNode.java
  *
- * @author gshankar
+ * @author Srinivasa
  */
 public class ConveyorNode implements Comparable<ConveyorNode>{
 
-    private Gate nodeId;
+    private GateData nodeId;
     private String nodeName;
     private Double minDistance = Double.POSITIVE_INFINITY;
     private ConveyorNode previous;
 
-    public ConveyorNode(Gate nodeId, String nodeName){
+    public ConveyorNode(GateData nodeId, String nodeName){
         this.nodeId = nodeId;
         this.nodeName = nodeName;
     }
 
-    public Gate getNodeId() {
+    public GateData getNodeId() {
         return nodeId;
     }
 

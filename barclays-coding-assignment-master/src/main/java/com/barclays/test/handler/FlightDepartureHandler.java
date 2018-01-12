@@ -1,7 +1,7 @@
-package com.barclays.input;
+package com.barclays.test.handler;
 
-import com.barclays.constants.Gate;
-import com.barclays.pojos.FlightDeparture;
+import com.barclays.test.data.GateData;
+import com.barclays.test.impl.FlightDeparture;
 
 import java.io.File;
 import java.io.IOException;
@@ -10,10 +10,8 @@ import java.util.Map;
 import java.util.Scanner;
 
 /**
- * Created on 12/4/15, 4:00 PM
- * FlightDepartureHandler.java
  *
- * @author gshankar
+ * @author Srinivasa
  */
 public class FlightDepartureHandler implements InputHandler {
 
@@ -61,7 +59,7 @@ public class FlightDepartureHandler implements InputHandler {
                     String destination = tokens[2];
                     String departureTime = tokens[3];
 
-                    Gate departureGate = Gate.getGate(flightGate);
+                    GateData departureGate = GateData.getGate(flightGate);
 
                     if (departureGate == null) {
                         throw new IOException("INVALID GATE FOUND...");
